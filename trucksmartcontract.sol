@@ -11,27 +11,24 @@ contract fulcrumInterface {
 }
 contract trucklending {
 
-    uint lumperfee;
     uint averagefee;
-
-    mapping (address => uint) public mappedUsers
+    uint lumperfee;
+    mapping (address => uint) public mappedUsers;
     address public truckaddresses;
-    uint arrayLength = addressIndices.length;
+    uint arrayLength = totallumpers.length;
     uint[] public totallumpers;
-    uint totallumpers;
 
     ///Connect Fulcrum Kovan Contract
     address fulcrumkovan = 0xF1C87dD61BF8a4e21978487e2705D52AA687F97E;
     fulcrumInterface fulcrumcontract = fulcrumInterface(fulcrumkovan);
-    
+
     ///Struct for a truck driver
     struct truckdriver {
         string dotnumber;
         string carriername;
-        string originlocation; 
+        string originlocation;
         address driveraddress;
     }
-    
     ///Struct for a warehouse
     struct warehouse {
         string warehousename;
@@ -41,15 +38,13 @@ contract trucklending {
         string zipcode;
         address warehouseaddress;
     }
-
     ///Loan based on lumper fee inputted
-    function lumperpayment(uint lumperfee) public {
-        mint(msg.sender, lumperfee); ///using mint function
-        return lumperfee;
+    function lumperpayment(uint fee) public {
+        mint(msg.sender, fee); ///using mint function
+        return fee;
     }
-    
     ///find the average of lumperfee
-    function findaveragefee(address warehouseaddress, uint lumpers) public {
+    function findaveragefee(uint lumpers) public {
         lumperfee.push(lumpers);
         for (uint i = 0; i < arrayLength; i++) {
             totallumpers = lumpers[i] + lumpers[i + 1];
